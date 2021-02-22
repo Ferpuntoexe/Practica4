@@ -6,4 +6,9 @@
         android:title="@string/ordenar"
         android:orderInCategory="101"
         app:showAsAction="never" />
+    <item
+        android:id="@+id/accion_AcercaDe"
+        android:orderInCategory="101"
+        android:title="@string/acercade"
+        app:showAsAction="never" />
 </menu>

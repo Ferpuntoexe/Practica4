@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">Practica4</string>
-    <string name="ordenar">Ordenar</string>
+    <string name="ordenar">a-z</string>
+    <string name="acercade">Acerca de...</string>
 </resources>
