@@ -2,4 +2,28 @@
     <string name="app_name">Practica4</string>
     <string name="ordenar">a-z</string>
     <string name="acercade">Acerca de...</string>
+    <string name="categoria">Categoria</string>
+    <string name="prioridad">Prioridad</string>
+    <string name="estado">Estado</string>
+    <string name="tecnico">Tectico Asignado:</string>
+    <string name="vacio" />
+    <string name="brevedes">Breve descripcion</string>
+    <string name="descrtipcion">Descripcion</string>
+    <string-array name="prioridad">
+        <item>Baja</item>
+        <item>Media</item>
+        <item>Alta</item>
+    </string-array>
+    <string-array name="categoria">
+        <item>Reparación</item>
+        <item>Instalación</item>
+        <item>Mantenimiento</item>
+        <item>Comercial</item>
+        <item>otros</item>
+    </string-array>
+    <string-array name="estado">
+        <item>Abierta</item>
+        <item>En curso</item>
+        <item>Terminada</item>
+    </string-array>
 </resources>
