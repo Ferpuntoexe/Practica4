@@ -1,9 +1,7 @@
-package model;
+package net.iesseveroochoa.fernandomartinezperez.practica4.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-
-import java.security.PrivilegedAction;
 
 public class Tarea implements Parcelable {
     static int contador = 1;

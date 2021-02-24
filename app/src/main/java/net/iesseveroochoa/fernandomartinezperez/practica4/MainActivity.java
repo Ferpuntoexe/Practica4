@@ -10,22 +10,23 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.List;
 
-import adapters.TareasAdapter;
-import model.Tarea;
-import model.TareaViewModel;
+import net.iesseveroochoa.fernandomartinezperez.practica4.adapters.TareasAdapter;
+import net.iesseveroochoa.fernandomartinezperez.practica4.model.Tarea;
+import net.iesseveroochoa.fernandomartinezperez.practica4.model.TareaViewModel;
 
 public class MainActivity extends AppCompatActivity {
 
-    private RecyclerView recyclerView;
     private TareasAdapter tareasAdapter;
     private RecyclerView rvTareas;
     private FloatingActionButton fabAdd;
     private TareaViewModel tareasViewModel;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,10 +44,13 @@ public class MainActivity extends AppCompatActivity {
                 tareasAdapter.setListaTareas(tarea);
             }
         });
+
+
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-                getMenuInflater().inflate(R.menu.main, menu);
+        getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
 
@@ -62,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
 
             return true;
 
-        } else if (id == R.id.accion_ordenar){
+        } else if (id == R.id.accion_ordenar) {
 
 
             return false;

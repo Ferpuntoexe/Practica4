@@ -1,4 +1,4 @@
-package adapters;
+package net.iesseveroochoa.fernandomartinezperez.practica4.adapters;
 
 import android.graphics.Color;
 import android.view.LayoutInflater;
@@ -15,7 +15,7 @@ import net.iesseveroochoa.fernandomartinezperez.practica4.R;
 
 import java.util.List;
 
-import model.Tarea;
+import net.iesseveroochoa.fernandomartinezperez.practica4.model.Tarea;
 
 public class TareasAdapter extends RecyclerView.Adapter<TareasAdapter.TareaViewHolder> {
 
@@ -25,13 +25,14 @@ public class TareasAdapter extends RecyclerView.Adapter<TareasAdapter.TareaViewH
     public void setListaTareas(List<Tarea> tareas) {
         listamisTareas = tareas;
         notifyDataSetChanged();
+
     }
 
 
     @NonNull
     @Override
     public TareaViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View itemView = LayoutInflater.from((parent.getContext())).inflate(R.layout.item_tarea, parent, false);
+        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_tarea, parent, false);
         return new TareaViewHolder(itemView);
     }
 
@@ -44,13 +45,13 @@ public class TareasAdapter extends RecyclerView.Adapter<TareasAdapter.TareaViewH
             holder.tvTecnico.setText(tarea.getId() + "-" + tarea.getTecnico());
             switch (tarea.getEstado()) {
                 case "Abierta":
-                    holder.ivEditar.setImageResource(R.mipmap.ic_abierta);
+                    holder.ivEstado.setImageResource(R.mipmap.ic_abierta);
                     break;
-                case "En cuerso":
+                case "En curso":
                     holder.ivEstado.setImageResource(R.mipmap.ic_en_curso);
                     break;
-                case "terminada":
-                    holder.ivEditar.setImageResource(R.mipmap.ic_terminada);
+                case "Terminada":
+                    holder.ivEstado.setImageResource(R.mipmap.ic_terminada);
                     break;
             }
             if (tarea.getPrioridad().equals("alta")) {
@@ -64,7 +65,7 @@ public class TareasAdapter extends RecyclerView.Adapter<TareasAdapter.TareaViewH
 
     @Override
     public int getItemCount() {
-        return 0;
+        return listamisTareas.size();
     }
 
     public static class TareaViewHolder extends RecyclerView.ViewHolder {
