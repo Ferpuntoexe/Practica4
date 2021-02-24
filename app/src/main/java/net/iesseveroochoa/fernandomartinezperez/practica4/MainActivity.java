@@ -2,21 +2,50 @@ package net.iesseveroochoa.fernandomartinezperez.practica4;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import java.util.List;
+
+import adapters.TareasAdapter;
+import model.Tarea;
+import model.TareaViewModel;
+
 public class MainActivity extends AppCompatActivity {
 
+    private RecyclerView recyclerView;
+    private TareasAdapter tareasAdapter;
+    private RecyclerView rvTareas;
+    private FloatingActionButton fabAdd;
+    private TareaViewModel tareasViewModel;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        rvTareas = findViewById(R.id.rvTareas);
+        fabAdd = findViewById(R.id.fabAñadir);
+        tareasAdapter = new TareasAdapter();
+        rvTareas.setLayoutManager(new LinearLayoutManager(this));
+        rvTareas.setAdapter(tareasAdapter);
+        tareasViewModel = new ViewModelProvider(this).get(TareaViewModel.class);
+        tareasViewModel.getListaTareas().observe(this, new Observer<List<Tarea>>() {
+            @Override
+            public void onChanged(List<Tarea> tarea) {
+                tareasAdapter.setListaTareas(tarea);
+            }
+        });
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
                 getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
