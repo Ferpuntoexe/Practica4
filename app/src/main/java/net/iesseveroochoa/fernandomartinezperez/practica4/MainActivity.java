@@ -7,10 +7,13 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -26,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView rvTareas;
     private FloatingActionButton fabAdd;
     private TareaViewModel tareasViewModel;
+    int cuentaNotas = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +49,21 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        fabAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
+
+                Intent intent = new Intent(MainActivity.this, NuevaTareaActivity.class);
+                int codigoNuevaTarea = 1;
+                startActivityForResult(intent, codigoNuevaTarea);
+
+            }
+        });
+        {
+
+
+        }
     }
 
     @Override
@@ -73,5 +91,27 @@ public class MainActivity extends AppCompatActivity {
 
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == Activity.RESULT_OK) {
+            if (requestCode == 1) {
+                if (tareasViewModel.getItemCount() == 0) {
+                    Tarea tarea = new Tarea(1, "", "", "", "", "", "");
+                    tareasViewModel.addTarea(tarea);
+                } else {
+
+                    Tarea tarea = new Tarea("", "", "", "", "", "");
+                    tareasViewModel.addTarea(tarea);
+
+                }
+            } else if (requestCode == 2) {
+
+            }
+        }
     }
 }
