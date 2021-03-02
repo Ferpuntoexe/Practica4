@@ -9,6 +9,7 @@
     <string name="vacio" />
     <string name="brevedes">Breve descripcion</string>
     <string name="descrtipcion">Descripcion</string>
+    <string name="ok">OK</string>
     <string-array name="prioridad">
         <item>Baja</item>
         <item>Media</item>

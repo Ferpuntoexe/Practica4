@@ -37,11 +37,15 @@ public class TareaViewModel extends AndroidViewModel {
 
     public void addTarea(Tarea tarea) {
         int i = listaTareas.indexOf(tarea);
-        if (i < 0)
+        if (i < 0) {
             listaTareas.add(tarea);
-        else {
+            listaTareasLiveData.setValue(listaTareas);
+
+        } else {
             listaTareas.remove(i);
             listaTareas.add(i, tarea);
+            listaTareasLiveData.setValue(listaTareas);
+
         }
     }
 

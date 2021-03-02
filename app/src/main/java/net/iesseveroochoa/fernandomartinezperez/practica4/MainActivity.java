@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
     private FloatingActionButton fabAdd;
     private TareaViewModel tareasViewModel;
     int cuentaNotas = 1;
-
+    public static final int OPTION_REQUES_CREAR = 1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
 
 
                 Intent intent = new Intent(MainActivity.this, NuevaTareaActivity.class);
-                int codigoNuevaTarea = 1;
+                int codigoNuevaTarea = OPTION_REQUES_CREAR;
                 startActivityForResult(intent, codigoNuevaTarea);
 
             }
@@ -99,7 +99,7 @@ public class MainActivity extends AppCompatActivity {
 
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == Activity.RESULT_OK) {
-            if (requestCode == 1) {
+            if (requestCode == OPTION_REQUES_CREAR) {
                 if (tareasViewModel.getItemCount() == 0) {
                     Tarea tarea = new Tarea(1, "", "", "", "", "", "");
                     tareasViewModel.addTarea(tarea);
