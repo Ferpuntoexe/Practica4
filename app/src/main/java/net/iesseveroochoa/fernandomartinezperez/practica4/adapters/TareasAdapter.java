@@ -20,6 +20,8 @@ import net.iesseveroochoa.fernandomartinezperez.practica4.model.Tarea;
 public class TareasAdapter extends RecyclerView.Adapter<TareasAdapter.TareaViewHolder> {
 
     private List<Tarea> listamisTareas;
+    private OnItemClickBorrarListener listenerBorrar;
+    private OnItemClickEditarListener listenerEditar;
 
 
     public void setListaTareas(List<Tarea> tareas) {
@@ -68,7 +70,9 @@ public class TareasAdapter extends RecyclerView.Adapter<TareasAdapter.TareaViewH
         return listamisTareas.size();
     }
 
-    public static class TareaViewHolder extends RecyclerView.ViewHolder {
+
+    public class TareaViewHolder extends RecyclerView.ViewHolder {
+
         private TextView tvResumen;
         private TextView tvTecnico;
         private ImageView ivEstado;
@@ -76,15 +80,47 @@ public class TareasAdapter extends RecyclerView.Adapter<TareasAdapter.TareaViewH
         private ImageView ivBorrar;
         private ConstraintLayout clItem;
 
-        public TareaViewHolder(@NonNull View itemView) {
+        private TareaViewHolder(@NonNull View itemView) {
             super(itemView);
             tvResumen = itemView.findViewById(R.id.tvResumen);
             tvTecnico = itemView.findViewById(R.id.tvTecnico);
             ivEstado = itemView.findViewById(R.id.ivEstado);
+
             ivEditar = itemView.findViewById(R.id.ivEditar);
+            ivEditar.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                }
+            });
+
             ivBorrar = itemView.findViewById(R.id.ivBorrar);
+            ivBorrar.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    listenerBorrar.onItemClickBorrar(listamisTareas.get(TareaViewHolder.this.getAdapterPosition()));
+                    
+                }
+            });
             clItem = itemView.findViewById(R.id.clItem);
 
         }
+    }
+
+    public interface OnItemClickBorrarListener {
+        void onItemClickBorrar(Tarea tarea);
+
+    }
+    public interface OnItemClickEditarListener{
+        void onItemClickEditar(Tarea tarea);
+    }
+
+    public void setOnItemClickBorrarListener(OnItemClickBorrarListener listener) {
+        this.listenerBorrar = listener;
+
+    }
+    public void setOnItemClickEditarListener(OnItemClickEditarListener listener) {
+        this.listenerEditar = listener;
+
     }
 }

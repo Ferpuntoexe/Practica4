@@ -31,6 +31,8 @@ public class MainActivity extends AppCompatActivity {
     private TareaViewModel tareasViewModel;
     int cuentaNotas = 1;
     public static final int OPTION_REQUES_CREAR = 1;
+    public static final int OPTION_REQUES_EDITAR = 2;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -101,17 +103,30 @@ public class MainActivity extends AppCompatActivity {
         if (resultCode == Activity.RESULT_OK) {
             if (requestCode == OPTION_REQUES_CREAR) {
                 if (tareasViewModel.getItemCount() == 0) {
-                    Tarea tarea = new Tarea(1, "", "", "", "", "", "");
+                    Tarea tarea = new Tarea(1, data.getStringExtra("prioridad"),
+                            data.getStringExtra("categoria"),
+                            data.getStringExtra("estado"),
+                            data.getStringExtra("tecnico"),
+                            data.getStringExtra("Descripcion"),
+                            data.getStringExtra("brevaDes"));
+
                     tareasViewModel.addTarea(tarea);
                 } else {
 
-                    Tarea tarea = new Tarea("", "", "", "", "", "");
+                    Tarea tarea = new Tarea(data.getStringExtra("prioridad"),
+                            data.getStringExtra("categoria"),
+                            data.getStringExtra("estado"),
+                            data.getStringExtra("tecnico"),
+                            data.getStringExtra("Descripcion"),
+                            data.getStringExtra("brevaDes"));
+
                     tareasViewModel.addTarea(tarea);
 
                 }
-            } else if (requestCode == 2) {
+            } else if (requestCode == OPTION_REQUES_EDITAR) {
 
             }
         }
     }
+
 }
