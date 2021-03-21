@@ -52,6 +52,7 @@ public class TareaViewModel extends AndroidViewModel {
     public void delTarea(Tarea tarea) {
         if (listaTareas.size() > 0) {
             listaTareas.remove(tarea);
+            listaTareasLiveData.setValue(listaTareas);
         }
     }
 

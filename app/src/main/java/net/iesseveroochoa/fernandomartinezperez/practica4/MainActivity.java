@@ -24,7 +24,7 @@ import net.iesseveroochoa.fernandomartinezperez.practica4.model.Tarea;
 import net.iesseveroochoa.fernandomartinezperez.practica4.model.TareaViewModel;
 
 public class MainActivity extends AppCompatActivity {
-
+    public final static String EXTRA_TAREA = "Activity.tarea";
     private TareasAdapter tareasAdapter;
     private RecyclerView rvTareas;
     private FloatingActionButton fabAdd;
@@ -37,12 +37,13 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         rvTareas = findViewById(R.id.rvTareas);
         fabAdd = findViewById(R.id.fabAñadir);
         tareasAdapter = new TareasAdapter();
         rvTareas.setLayoutManager(new LinearLayoutManager(this));
         rvTareas.setAdapter(tareasAdapter);
+
+        /**Aqui se llama al View Model y actualiza el Recicler View*/
         tareasViewModel = new ViewModelProvider(this).get(TareaViewModel.class);
         tareasViewModel.getListaTareas().observe(this, new Observer<List<Tarea>>() {
             @Override
@@ -50,7 +51,14 @@ public class MainActivity extends AppCompatActivity {
                 tareasAdapter.setListaTareas(tarea);
             }
         });
-
+        /**Aqui se obserba si se ha pulsado sobre el icono de borrar*/
+        tareasAdapter.setOnItemClickBorrarListener(new TareasAdapter.OnItemClickBorrarListener() {
+            @Override
+            public void onItemClickBorrar(Tarea tarea) {
+                tareasViewModel.delTarea(tarea);
+            }
+        });
+        /**Aqui se obserba si se ha pulsado sobre el boton flotante de añadir de borrar*/
         fabAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -67,17 +75,18 @@ public class MainActivity extends AppCompatActivity {
 
         }
     }
-
+    /** Esto genera el menu*/
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
-
+    /**Aqui se obserba si se ha pulsado sobre el alguna de las obciones del menu*/
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
         int id = item.getItemId();
+        /**Aqui al pulsa acerca de llama a un cuadro de dialogo*/
         if (id == R.id.accion_AcercaDe) {
 
             FragmentManager fragmentManager = getSupportFragmentManager();
@@ -85,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
             dialogo.show(fragmentManager, "tagAlerta");
 
             return true;
-
+        /**Aqui al pulsar Ordenar ordena las tareas*/
         } else if (id == R.id.accion_ordenar) {
 
 
@@ -94,7 +103,7 @@ public class MainActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-
+    /**Aqui se recogen los datos de la tarea que se ha manipulado*/
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
@@ -102,27 +111,13 @@ public class MainActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == Activity.RESULT_OK) {
             if (requestCode == OPTION_REQUES_CREAR) {
-                if (tareasViewModel.getItemCount() == 0) {
-                    Tarea tarea = new Tarea(1, data.getStringExtra("prioridad"),
-                            data.getStringExtra("categoria"),
-                            data.getStringExtra("estado"),
-                            data.getStringExtra("tecnico"),
-                            data.getStringExtra("Descripcion"),
-                            data.getStringExtra("brevaDes"));
 
-                    tareasViewModel.addTarea(tarea);
-                } else {
 
-                    Tarea tarea = new Tarea(data.getStringExtra("prioridad"),
-                            data.getStringExtra("categoria"),
-                            data.getStringExtra("estado"),
-                            data.getStringExtra("tecnico"),
-                            data.getStringExtra("Descripcion"),
-                            data.getStringExtra("brevaDes"));
+                Tarea tarea = data.getParcelableExtra(NuevaTareaActivity.EXTRA_TAREA);
 
-                    tareasViewModel.addTarea(tarea);
+                tareasViewModel.addTarea(tarea);
 
-                }
+
             } else if (requestCode == OPTION_REQUES_EDITAR) {
 
             }

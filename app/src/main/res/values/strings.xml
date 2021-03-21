@@ -10,6 +10,10 @@
     <string name="brevedes">Breve descripcion</string>
     <string name="descrtipcion">Descripcion</string>
     <string name="ok">OK</string>
+    <string name="nuevaT">Nueva Tarea</string>
+    <string name="abierta">Abierta</string>
+    <string name="enCurso">En curso</string>
+    <string name="terminada">Terminada</string>
     <string-array name="prioridad">
         <item>Baja</item>
         <item>Media</item>

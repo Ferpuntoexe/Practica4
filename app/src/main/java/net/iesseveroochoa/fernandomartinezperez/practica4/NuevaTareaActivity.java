@@ -16,7 +16,11 @@ import android.widget.TextView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import net.iesseveroochoa.fernandomartinezperez.practica4.model.Tarea;
+
 public class NuevaTareaActivity extends AppCompatActivity {
+    public final static String EXTRA_TAREA = "Activity.tarea";
+
     private Spinner spCategoria;
     private Spinner spPrioridad;
     private Spinner spEstado;
@@ -33,7 +37,7 @@ public class NuevaTareaActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nueva_tarea);
-        this.setTitle("Nueva Tarea");
+        this.setTitle(getString(R.string.nuevaT));
 
         Intent intent = new Intent();
 
@@ -47,15 +51,15 @@ public class NuevaTareaActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String posicionActual = parent.getItemAtPosition(position).toString();
-                if (posicionActual.equals("Abierta")) {
+                if (posicionActual.equals(getString(R.string.abierta))) {
                     ivEstadoAb.setVisibility(View.VISIBLE);
                     ivEstadoEC.setVisibility(View.INVISIBLE);
                     ivEstadoTe.setVisibility(View.INVISIBLE);
-                } else if (posicionActual.equals("En curso")) {
+                } else if (posicionActual.equals(getString(R.string.enCurso))) {
                     ivEstadoAb.setVisibility(View.INVISIBLE);
                     ivEstadoEC.setVisibility(View.VISIBLE);
                     ivEstadoTe.setVisibility(View.INVISIBLE);
-                } else if (posicionActual.equals("Terminada")) {
+                } else if (posicionActual.equals(getString(R.string.terminada))) {
                     ivEstadoAb.setVisibility(View.INVISIBLE);
                     ivEstadoEC.setVisibility(View.INVISIBLE);
                     ivEstadoTe.setVisibility(View.VISIBLE);
@@ -79,24 +83,24 @@ public class NuevaTareaActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 TextView textoTemp;
-                String temp;
+
+                Tarea tarea;
 
 
                 textoTemp = (TextView) spCategoria.getSelectedView();
-                temp = textoTemp.getText().toString();
-                intent.putExtra("categoria", temp);
+                String temp = textoTemp.getText().toString();
+
 
                 textoTemp = (TextView) spPrioridad.getSelectedView();
-                temp = textoTemp.getText().toString();
-                intent.putExtra("prioridad", temp);
+                String temp2 = textoTemp.getText().toString();
+
 
                 textoTemp = (TextView) spEstado.getSelectedView();
-                temp = textoTemp.getText().toString();
-                intent.putExtra("estado", temp);
+                String temp3 = textoTemp.getText().toString();
 
-                intent.putExtra("tecnico", etTecnico.getText().toString());
-                intent.putExtra("brevaDes", etBreveDes.getText().toString());
-                intent.putExtra("Descripcion", etmDescripcion.getText().toString());
+
+                tarea = new Tarea(temp2, temp, temp3, etTecnico.getText().toString(), etmDescripcion.getText().toString(), etBreveDes.getText().toString());
+                intent.putExtra(EXTRA_TAREA, tarea);
                 setResult(Activity.RESULT_OK, intent);
                 finish();
             }
