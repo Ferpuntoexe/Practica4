@@ -64,6 +64,14 @@ public class TareaViewModel extends AndroidViewModel {
         }
     }
 
+    public int tareaIndexOf(Tarea tarea) {
+        if (tarea == null) {
+            return 0;
+        } else {
+            return listaTareas.indexOf(tarea);
+        }
+    }
+
     private void crearDatos() {
         listaTareas = new ArrayList<Tarea>();
         Tarea tarea = new Tarea("Alta", "Mantenimiento", "Abierta", "Juan " +
@@ -118,15 +126,18 @@ public class TareaViewModel extends AndroidViewModel {
         listaTareas.add(tarea);
     }
 
-    public void setDatos(Tarea tarea, String prioridad, String categoria, String estado, String tecnico, String descripcion, String resumen) {
-        int i = listaTareas.indexOf(tarea);
+    public void setDatos(int indice, String prioridad, String categoria, String estado, String tecnico, String resumen, String descripcion) {
 
-        if (i > 0) {
-            listaTareas.get(i).setPrioridad(prioridad);
-            listaTareas.get(i).setEstado(estado);
-            listaTareas.get(i).setTecnico(tecnico);
-            listaTareas.get(i).setDescripcion(descripcion);
-            listaTareas.get(i).setResumen(resumen);
+
+        if (indice > 0) {
+            listaTareas.get(indice).setPrioridad(prioridad);
+            listaTareas.get(indice).setCategoria(categoria);
+            listaTareas.get(indice).setEstado(estado);
+            listaTareas.get(indice).setTecnico(tecnico);
+            listaTareas.get(indice).setDescripcion(descripcion);
+            listaTareas.get(indice).setResumen(resumen);
+            listaTareasLiveData.setValue(listaTareas);
+
         }
     }
 }

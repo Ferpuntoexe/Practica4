@@ -96,7 +96,7 @@
         app:layout_constraintTop_toBottomOf="@+id/etTecnico" />
 
     <EditText
-        android:id="@+id/etBreveDes"
+        android:id="@+id/etResumen"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -112,8 +112,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:text="@string/descrtipcion"
-        app:layout_constraintStart_toStartOf="@+id/etBreveDes"
-        app:layout_constraintTop_toBottomOf="@+id/etBreveDes" />
+        app:layout_constraintStart_toStartOf="@+id/etResumen"
+        app:layout_constraintTop_toBottomOf="@+id/etResumen" />
 
     <EditText
         android:id="@+id/etmDescripcion"
@@ -124,7 +124,7 @@
         android:gravity="start|top"
         android:inputType="textMultiLine"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/etBreveDes"
+        app:layout_constraintEnd_toEndOf="@+id/etResumen"
         app:layout_constraintStart_toStartOf="@+id/textView6"
         app:layout_constraintTop_toBottomOf="@+id/textView6" />
 

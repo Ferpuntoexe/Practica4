@@ -3,7 +3,6 @@ package net.iesseveroochoa.fernandomartinezperez.practica4;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
-import android.content.ClipData;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -20,6 +19,7 @@ import net.iesseveroochoa.fernandomartinezperez.practica4.model.Tarea;
 
 public class NuevaTareaActivity extends AppCompatActivity {
     public final static String EXTRA_TAREA = "Activity.tarea";
+    public final static String EXTRA_INDICE = "Indice.tarea";
 
     private Spinner spCategoria;
     private Spinner spPrioridad;
@@ -38,15 +38,35 @@ public class NuevaTareaActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nueva_tarea);
         this.setTitle(getString(R.string.nuevaT));
-
         Intent intent = new Intent();
+        int indice = getIntent().getIntExtra(EXTRA_INDICE, 0);
 
-        ivEstadoAb = (ImageView) findViewById(R.id.ivEstadoAb);
-        ivEstadoEC = (ImageView) findViewById(R.id.ivEstadoEC);
-        ivEstadoTe = (ImageView) findViewById(R.id.ivEstadoTe);
-        spCategoria = (Spinner) findViewById(R.id.spCategoria);
-        spPrioridad = (Spinner) findViewById(R.id.spPrioridad);
-        spEstado = (Spinner) findViewById(R.id.spEstado);
+        Tarea tareaAnt = getIntent().getParcelableExtra(EXTRA_TAREA);
+
+
+        ivEstadoAb = findViewById(R.id.ivEstadoAb);
+        ivEstadoEC = findViewById(R.id.ivEstadoEC);
+        ivEstadoTe = findViewById(R.id.ivEstadoTe);
+
+        spCategoria = findViewById(R.id.spCategoria);
+        spPrioridad = findViewById(R.id.spPrioridad);
+        spEstado = findViewById(R.id.spEstado);
+        etTecnico = findViewById(R.id.etTecnico);
+        etBreveDes = findViewById(R.id.etResumen);
+        etmDescripcion = findViewById(R.id.etmDescripcion);
+        fabGuardar = findViewById(R.id.fabGuardar);
+
+        if (tareaAnt != null) {
+            spCategoria.setSelection(getIndex(spCategoria, tareaAnt.getCategoria()));
+            spPrioridad.setSelection(getIndex(spPrioridad, tareaAnt.getPrioridad()));
+            spEstado.setSelection(getIndex(spEstado, tareaAnt.getEstado()));
+
+            etTecnico.setText(tareaAnt.getTecnico());
+            etBreveDes.setText(tareaAnt.getResumen());
+            etmDescripcion.setText(tareaAnt.getDescripcion());
+        }
+
+
         spEstado.setOnItemSelectedListener(new OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -73,10 +93,6 @@ public class NuevaTareaActivity extends AppCompatActivity {
 
             }
         });
-        etTecnico = (EditText) findViewById(R.id.etTecnico);
-        etBreveDes = (EditText) findViewById(R.id.etBreveDes);
-        etmDescripcion = (EditText) findViewById(R.id.etmDescripcion);
-        fabGuardar = (FloatingActionButton) findViewById(R.id.fabGuardar);
 
         fabGuardar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -88,18 +104,19 @@ public class NuevaTareaActivity extends AppCompatActivity {
 
 
                 textoTemp = (TextView) spCategoria.getSelectedView();
-                String temp = textoTemp.getText().toString();
+                String categoria = textoTemp.getText().toString();
 
 
                 textoTemp = (TextView) spPrioridad.getSelectedView();
-                String temp2 = textoTemp.getText().toString();
+                String prioridad = textoTemp.getText().toString();
 
 
                 textoTemp = (TextView) spEstado.getSelectedView();
-                String temp3 = textoTemp.getText().toString();
+                String estado = textoTemp.getText().toString();
 
 
-                tarea = new Tarea(temp2, temp, temp3, etTecnico.getText().toString(), etmDescripcion.getText().toString(), etBreveDes.getText().toString());
+                tarea = new Tarea(prioridad, categoria, estado, etTecnico.getText().toString(), etBreveDes.getText().toString(), etmDescripcion.getText().toString());
+                intent.putExtra(EXTRA_INDICE, indice);
                 intent.putExtra(EXTRA_TAREA, tarea);
                 setResult(Activity.RESULT_OK, intent);
                 finish();
@@ -109,5 +126,13 @@ public class NuevaTareaActivity extends AppCompatActivity {
 
     }
 
+    private int getIndex(Spinner spinner, String valor) {
+        for (int i = 0; i < spinner.getCount(); i++) {
+            if (spinner.getItemAtPosition(i).toString().equalsIgnoreCase(valor)) {
+                return i;
+            }
+        }
+        return 0;
+    }
 
 }

@@ -90,7 +90,7 @@ public class TareasAdapter extends RecyclerView.Adapter<TareasAdapter.TareaViewH
             ivEditar.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
+                    listenerEditar.onItemClickEditar(listamisTareas.get(TareaViewHolder.this.getAdapterPosition()));
                 }
             });
 

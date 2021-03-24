@@ -11,9 +11,21 @@
     <string name="descrtipcion">Descripcion</string>
     <string name="ok">OK</string>
     <string name="nuevaT">Nueva Tarea</string>
+    <string name="borrar">Borrar tarea</string>
+
     <string name="abierta">Abierta</string>
     <string name="enCurso">En curso</string>
     <string name="terminada">Terminada</string>
+
+    <string name="reparacion">Reparación</string>
+    <string name="instalacion">Instalación</string>
+    <string name="mantenimiento">Mantenimiento</string>
+    <string name="comercial">Comercial</string>
+    <string name="otros">Otros</string>
+    <string name="baja">Baja</string>
+    <string name="media">Media</string>
+    <string name="alta">Alta</string>
+
     <string-array name="prioridad">
         <item>Baja</item>
         <item>Media</item>
@@ -24,7 +36,7 @@
         <item>Instalación</item>
         <item>Mantenimiento</item>
         <item>Comercial</item>
-        <item>otros</item>
+        <item>Otros</item>
     </string-array>
     <string-array name="estado">
         <item>Abierta</item>

@@ -8,12 +8,13 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.TextView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -25,13 +26,14 @@ import net.iesseveroochoa.fernandomartinezperez.practica4.model.TareaViewModel;
 
 public class MainActivity extends AppCompatActivity {
     public final static String EXTRA_TAREA = "Activity.tarea";
+    public final static String EXTRA_INDICE = "Indice.tarea";
     private TareasAdapter tareasAdapter;
     private RecyclerView rvTareas;
     private FloatingActionButton fabAdd;
     private TareaViewModel tareasViewModel;
     int cuentaNotas = 1;
-    public static final int OPTION_REQUES_CREAR = 1;
-    public static final int OPTION_REQUES_EDITAR = 2;
+    public static final int OPTION_REQUEST_CREAR = 1;
+    public static final int OPTION_REQUEST_EDITAR = 2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +45,9 @@ public class MainActivity extends AppCompatActivity {
         rvTareas.setLayoutManager(new LinearLayoutManager(this));
         rvTareas.setAdapter(tareasAdapter);
 
-        /**Aqui se llama al View Model y actualiza el Recicler View*/
+        /**
+         * Aqui se llama al View Model y actualiza el Recicler View
+         */
         tareasViewModel = new ViewModelProvider(this).get(TareaViewModel.class);
         tareasViewModel.getListaTareas().observe(this, new Observer<List<Tarea>>() {
             @Override
@@ -51,21 +55,61 @@ public class MainActivity extends AppCompatActivity {
                 tareasAdapter.setListaTareas(tarea);
             }
         });
-        /**Aqui se obserba si se ha pulsado sobre el icono de borrar*/
+
+        /**
+         * Aqui se obserba si se ha pulsado sobre el icono Borrar
+         */
         tareasAdapter.setOnItemClickBorrarListener(new TareasAdapter.OnItemClickBorrarListener() {
             @Override
             public void onItemClickBorrar(Tarea tarea) {
-                tareasViewModel.delTarea(tarea);
+
+                AlertDialog.Builder builder =
+                        new AlertDialog.Builder(MainActivity.this);
+
+                builder.setMessage("¿Esta seguro de borrar la tarea " + tarea.getId() + "?").setTitle(R.string.borrar)
+                        .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int id) {
+                                tareasViewModel.delTarea(tarea);
+                                dialog.cancel();
+
+                            }
+                        })
+                        .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.cancel();
+                            }
+                        });
+                builder.show();
+
             }
         });
-        /**Aqui se obserba si se ha pulsado sobre el boton flotante de añadir de borrar*/
+        /**
+         * Aqui se obserba si se ha pulsado sobre el icono Editar
+         */
+        tareasAdapter.setOnItemClickEditarListener(new TareasAdapter.OnItemClickEditarListener() {
+            @Override
+            public void onItemClickEditar(Tarea tarea) {
+                Intent intent = new Intent(MainActivity.this, NuevaTareaActivity.class);
+                intent.putExtra(EXTRA_TAREA, tarea);
+                intent.putExtra(EXTRA_INDICE, tareasViewModel.tareaIndexOf(tarea));
+                int codigoNuevaTarea = OPTION_REQUEST_EDITAR;
+                startActivityForResult(intent, codigoNuevaTarea);
+            }
+        });
+
+        /**
+         * Aqui se obserba si se ha pulsado sobre el boton flotante de añadir
+         */
+
         fabAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
 
                 Intent intent = new Intent(MainActivity.this, NuevaTareaActivity.class);
-                int codigoNuevaTarea = OPTION_REQUES_CREAR;
+                int codigoNuevaTarea = OPTION_REQUEST_CREAR;
                 startActivityForResult(intent, codigoNuevaTarea);
 
             }
@@ -75,13 +119,19 @@ public class MainActivity extends AppCompatActivity {
 
         }
     }
-    /** Esto genera el menu*/
+
+    /**
+     * Esto genera el menu
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
-    /**Aqui se obserba si se ha pulsado sobre el alguna de las obciones del menu*/
+
+    /**
+     * Aqui se obserba si se ha pulsado sobre el alguna de las obciones del menu
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
@@ -94,7 +144,7 @@ public class MainActivity extends AppCompatActivity {
             dialogo.show(fragmentManager, "tagAlerta");
 
             return true;
-        /**Aqui al pulsar Ordenar ordena las tareas*/
+            /**Aqui al pulsar Ordenar ordena las tareas*/
         } else if (id == R.id.accion_ordenar) {
 
 
@@ -103,14 +153,17 @@ public class MainActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-    /**Aqui se recogen los datos de la tarea que se ha manipulado*/
+
+    /**
+     * Aqui se recogen los datos de la tarea que se ha manipulado
+     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
 
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == Activity.RESULT_OK) {
-            if (requestCode == OPTION_REQUES_CREAR) {
+            if (requestCode == OPTION_REQUEST_CREAR) {
 
 
                 Tarea tarea = data.getParcelableExtra(NuevaTareaActivity.EXTRA_TAREA);
@@ -118,8 +171,17 @@ public class MainActivity extends AppCompatActivity {
                 tareasViewModel.addTarea(tarea);
 
 
-            } else if (requestCode == OPTION_REQUES_EDITAR) {
+            } else if (requestCode == OPTION_REQUEST_EDITAR) {
 
+                Tarea tarea = data.getParcelableExtra(NuevaTareaActivity.EXTRA_TAREA);
+                int indice = data.getIntExtra(EXTRA_INDICE, 0);
+                tareasViewModel.setDatos(indice,
+                        tarea.getPrioridad(),
+                        tarea.getCategoria(),
+                        tarea.getEstado(),
+                        tarea.getTecnico(),
+                        tarea.getResumen(),
+                        tarea.getDescripcion());
             }
         }
     }
