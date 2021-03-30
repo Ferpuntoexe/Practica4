@@ -25,7 +25,7 @@
     <string name="baja">Baja</string>
     <string name="media">Media</string>
     <string name="alta">Alta</string>
-
+    <string name="tarean">Tarea nº</string>
     <string-array name="prioridad">
         <item>Baja</item>
         <item>Media</item>

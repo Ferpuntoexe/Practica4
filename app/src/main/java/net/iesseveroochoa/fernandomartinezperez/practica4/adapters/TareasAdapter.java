@@ -99,7 +99,7 @@ public class TareasAdapter extends RecyclerView.Adapter<TareasAdapter.TareaViewH
                 @Override
                 public void onClick(View v) {
                     listenerBorrar.onItemClickBorrar(listamisTareas.get(TareaViewHolder.this.getAdapterPosition()));
-                    
+
                 }
             });
             clItem = itemView.findViewById(R.id.clItem);
@@ -111,7 +111,8 @@ public class TareasAdapter extends RecyclerView.Adapter<TareasAdapter.TareaViewH
         void onItemClickBorrar(Tarea tarea);
 
     }
-    public interface OnItemClickEditarListener{
+
+    public interface OnItemClickEditarListener {
         void onItemClickEditar(Tarea tarea);
     }
 
@@ -119,6 +120,7 @@ public class TareasAdapter extends RecyclerView.Adapter<TareasAdapter.TareaViewH
         this.listenerBorrar = listener;
 
     }
+
     public void setOnItemClickEditarListener(OnItemClickEditarListener listener) {
         this.listenerEditar = listener;
 

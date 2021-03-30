@@ -37,7 +37,6 @@ public class NuevaTareaActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nueva_tarea);
-        this.setTitle(getString(R.string.nuevaT));
         Intent intent = new Intent();
         int indice = getIntent().getIntExtra(EXTRA_INDICE, 0);
 
@@ -57,6 +56,9 @@ public class NuevaTareaActivity extends AppCompatActivity {
         fabGuardar = findViewById(R.id.fabGuardar);
 
         if (tareaAnt != null) {
+            this.setTitle(getString(R.string.tarean) + tareaAnt.getId());
+
+
             spCategoria.setSelection(getIndex(spCategoria, tareaAnt.getCategoria()));
             spPrioridad.setSelection(getIndex(spPrioridad, tareaAnt.getPrioridad()));
             spEstado.setSelection(getIndex(spEstado, tareaAnt.getEstado()));
@@ -64,6 +66,8 @@ public class NuevaTareaActivity extends AppCompatActivity {
             etTecnico.setText(tareaAnt.getTecnico());
             etBreveDes.setText(tareaAnt.getResumen());
             etmDescripcion.setText(tareaAnt.getDescripcion());
+        } else {
+            this.setTitle(getString(R.string.nuevaT));
         }
 
 

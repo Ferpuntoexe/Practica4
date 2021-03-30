@@ -16,7 +16,7 @@ public class AcercaDe extends DialogFragment {
 
         builder.setMessage("Practica 4 \nV1.0 \nFernando Martinez Perez \nLicencia cc \n(Creative Commons)")
                 .setTitle(R.string.acercade)
-                .setPositiveButton( "Ok", new DialogInterface.OnClickListener() {
+                .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         dialog.cancel();
                     }

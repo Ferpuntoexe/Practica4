@@ -22,10 +22,10 @@ public class MensageBorrar extends DialogFragment {
                         dialog.cancel();
                     }
                 }).setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.cancel();
-                    }
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
         });
 
 
