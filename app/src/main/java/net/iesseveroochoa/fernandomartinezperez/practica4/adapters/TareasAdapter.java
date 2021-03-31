@@ -18,7 +18,7 @@ import java.util.List;
 import net.iesseveroochoa.fernandomartinezperez.practica4.model.Tarea;
 
 public class TareasAdapter extends RecyclerView.Adapter<TareasAdapter.TareaViewHolder> {
-
+    /**Aqui se declaran los objetos de la lista y los listener*/
     private List<Tarea> listamisTareas;
     private OnItemClickBorrarListener listenerBorrar;
     private OnItemClickEditarListener listenerEditar;
@@ -30,14 +30,14 @@ public class TareasAdapter extends RecyclerView.Adapter<TareasAdapter.TareaViewH
 
     }
 
-
+/**Este metodo sive para crear y devolver un viewHolder*/
     @NonNull
     @Override
     public TareaViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_tarea, parent, false);
         return new TareaViewHolder(itemView);
     }
-
+/**Este metodos sirve para configurar el contenido de un item*/
     @Override
     public void onBindViewHolder(@NonNull TareaViewHolder holder, int position) {
         if (listamisTareas != null) {
@@ -64,13 +64,13 @@ public class TareasAdapter extends RecyclerView.Adapter<TareasAdapter.TareaViewH
             }
         }
     }
-
+/**este metodo devielve la lonjitud de la lista de tareas*/
     @Override
     public int getItemCount() {
         return listamisTareas.size();
     }
 
-
+/**Esta clase se encarga de representar los items de un Recyclerview*/
     public class TareaViewHolder extends RecyclerView.ViewHolder {
 
         private TextView tvResumen;
@@ -79,13 +79,14 @@ public class TareasAdapter extends RecyclerView.Adapter<TareasAdapter.TareaViewH
         private ImageView ivEditar;
         private ImageView ivBorrar;
         private ConstraintLayout clItem;
-
+    /** aqui se enlazan los objetos con los recursos correspondientes*/
         private TareaViewHolder(@NonNull View itemView) {
             super(itemView);
             tvResumen = itemView.findViewById(R.id.tvResumen);
             tvTecnico = itemView.findViewById(R.id.tvTecnico);
             ivEstado = itemView.findViewById(R.id.ivEstado);
 
+            /**Aqui se escucha si se ha pulsado sobre el icono de Editar*/
             ivEditar = itemView.findViewById(R.id.ivEditar);
             ivEditar.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -94,6 +95,7 @@ public class TareasAdapter extends RecyclerView.Adapter<TareasAdapter.TareaViewH
                 }
             });
 
+            /**Aqui se escucha si se ha pulsado sobre el icono de Borrar*/
             ivBorrar = itemView.findViewById(R.id.ivBorrar);
             ivBorrar.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -106,7 +108,7 @@ public class TareasAdapter extends RecyclerView.Adapter<TareasAdapter.TareaViewH
 
         }
     }
-
+/**Estas on las interfaces que hacen funcionar los listener*/
     public interface OnItemClickBorrarListener {
         void onItemClickBorrar(Tarea tarea);
 

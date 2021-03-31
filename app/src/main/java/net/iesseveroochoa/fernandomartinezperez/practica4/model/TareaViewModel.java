@@ -30,11 +30,11 @@ public class TareaViewModel extends AndroidViewModel {
     public LiveData<List<Tarea>> getListaTareas() {
         return listaTareasLiveData;
     }
-
+/**Este metodo sirve para setear una lista de tareas precargada en caso de ser necesario*/
     public void setListaTareas(List<Tarea> listaTareas) {
         this.listaTareas = listaTareas;
     }
-
+/**Este metodo sirve par añadir una tarea*/
     public void addTarea(Tarea tarea) {
         int i = listaTareas.indexOf(tarea);
         if (i < 0) {
@@ -48,14 +48,14 @@ public class TareaViewModel extends AndroidViewModel {
 
         }
     }
-
+/**Este metodo sirve para borrar una tarea*/
     public void delTarea(Tarea tarea) {
         if (listaTareas.size() > 0) {
             listaTareas.remove(tarea);
             listaTareasLiveData.setValue(listaTareas);
         }
     }
-
+/**Este metodo sive para contar el numero de tareas en la lista*/
     public int getItemCount() {
         if (listaTareas != null) {
             return listaTareas.size();
@@ -63,7 +63,7 @@ public class TareaViewModel extends AndroidViewModel {
             return 0;
         }
     }
-
+/**Este metodo sirve para conseguir el indice de una tarea dentro de la lista*/
     public int tareaIndexOf(Tarea tarea) {
         if (tarea == null) {
             return 0;
@@ -71,7 +71,7 @@ public class TareaViewModel extends AndroidViewModel {
             return listaTareas.indexOf(tarea);
         }
     }
-
+/**Este metodo sirve para crear las tareas de ejemplo*/
     private void crearDatos() {
         listaTareas = new ArrayList<Tarea>();
         Tarea tarea = new Tarea("Alta", "Mantenimiento", "Abierta", "Juan " +
@@ -125,7 +125,7 @@ public class TareaViewModel extends AndroidViewModel {
                 "convallis");
         listaTareas.add(tarea);
     }
-
+/**Este metodo sive para sobreescribir los datos de una tarea en concreto*/
     public void setDatos(int indice, String prioridad, String categoria, String estado, String tecnico, String resumen, String descripcion) {
 
 

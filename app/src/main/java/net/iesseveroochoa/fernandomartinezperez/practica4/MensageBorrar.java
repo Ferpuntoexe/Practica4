@@ -11,6 +11,8 @@ public class MensageBorrar extends DialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
 
+        /** En desuso*/
+
         AlertDialog.Builder builder =
                 new AlertDialog.Builder(getActivity());
 
@@ -28,7 +30,8 @@ public class MensageBorrar extends DialogFragment {
             }
         });
 
-
         return builder.create();
+
+
     }
 }

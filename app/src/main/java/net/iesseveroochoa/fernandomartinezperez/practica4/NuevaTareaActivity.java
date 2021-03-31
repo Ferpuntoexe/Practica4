@@ -18,6 +18,9 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import net.iesseveroochoa.fernandomartinezperez.practica4.model.Tarea;
 
 public class NuevaTareaActivity extends AppCompatActivity {
+    /**
+     * aqui se declaran los atributos que vamos a utilizar
+     */
     public final static String EXTRA_TAREA = "Activity.tarea";
     public final static String EXTRA_INDICE = "Indice.tarea";
 
@@ -32,7 +35,9 @@ public class NuevaTareaActivity extends AppCompatActivity {
     private ImageView ivEstadoEC;
     private ImageView ivEstadoTe;
 
-
+    /**
+     * Este es el metodo que se llama cuando se inicia la actividad
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,6 +47,7 @@ public class NuevaTareaActivity extends AppCompatActivity {
 
         Tarea tareaAnt = getIntent().getParcelableExtra(EXTRA_TAREA);
 
+        /** aqui se enlazan los objetos con los recursos correspondientes*/
 
         ivEstadoAb = findViewById(R.id.ivEstadoAb);
         ivEstadoEC = findViewById(R.id.ivEstadoEC);
@@ -54,7 +60,7 @@ public class NuevaTareaActivity extends AppCompatActivity {
         etBreveDes = findViewById(R.id.etResumen);
         etmDescripcion = findViewById(R.id.etmDescripcion);
         fabGuardar = findViewById(R.id.fabGuardar);
-
+/**En caso de que la actividad no sea nuava se recoje y muestan los datos anteriores*/
         if (tareaAnt != null) {
             this.setTitle(getString(R.string.tarean) + tareaAnt.getId());
 
@@ -70,7 +76,7 @@ public class NuevaTareaActivity extends AppCompatActivity {
             this.setTitle(getString(R.string.nuevaT));
         }
 
-
+/**Aqui en caso de que se cambie algo del spiner 'Estado' se cambia la imagen en consecuencia*/
         spEstado.setOnItemSelectedListener(new OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -97,7 +103,7 @@ public class NuevaTareaActivity extends AppCompatActivity {
 
             }
         });
-
+/**Aqui si se pulsa 'guardar' se recogen los datos en pantalla y se envian a la acividad principal*/
         fabGuardar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -130,6 +136,9 @@ public class NuevaTareaActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Este metodo sirve para localizar un valor a traves de su string en un spinner
+     */
     private int getIndex(Spinner spinner, String valor) {
         for (int i = 0; i < spinner.getCount(); i++) {
             if (spinner.getItemAtPosition(i).toString().equalsIgnoreCase(valor)) {

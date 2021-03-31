@@ -35,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
     public static final int OPTION_REQUEST_CREAR = 1;
     public static final int OPTION_REQUEST_EDITAR = 2;
 
+    /**Este es el metodo que se llama cuando se inicia la actividad*/
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
                 AlertDialog.Builder builder =
                         new AlertDialog.Builder(MainActivity.this);
 
-                builder.setMessage("¿Esta seguro de borrar la tarea " + tarea.getId() + "?").setTitle(R.string.borrar)
+                builder.setMessage(R.string.mensageBorrar + tarea.getId() + "?").setTitle(R.string.borrar)
                         .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int id) {
@@ -75,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
 
                             }
                         })
-                        .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                        .setNegativeButton(R.string.cancelar, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 dialog.cancel();
@@ -155,7 +156,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * Aqui se recogen los datos de la tarea que se ha manipulado
+     * Aqui se recogen la tarea que se ha manipulado
      */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -163,6 +164,7 @@ public class MainActivity extends AppCompatActivity {
 
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == Activity.RESULT_OK) {
+            /**En caso de que la tarea sea nuava aqui se recoge y se añade al RV*/
             if (requestCode == OPTION_REQUEST_CREAR) {
 
 
@@ -170,7 +172,7 @@ public class MainActivity extends AppCompatActivity {
 
                 tareasViewModel.addTarea(tarea);
 
-
+                /**en caso de que la tarea fuese una editada se sobreesciben los datos*/
             } else if (requestCode == OPTION_REQUEST_EDITAR) {
 
                 Tarea tarea = data.getParcelableExtra(NuevaTareaActivity.EXTRA_TAREA);

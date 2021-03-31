@@ -4,7 +4,6 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 public class Tarea implements Parcelable {
-    static int contador = 1;
     private int id;
     private String prioridad;
     private String categoria;
@@ -12,7 +11,9 @@ public class Tarea implements Parcelable {
     private String tecnico;
     private String descripcion;
     private String resumen;
+    static int contador = 1;
 
+    /**En este constructior recoge los datos al crear la tarea pasandole el id*/
     public Tarea(int id, String prioridad, String categoria, String estado, String tecnico, String resumen, String descripcion) {
         this.id = id;
         this.prioridad = prioridad;
@@ -22,7 +23,7 @@ public class Tarea implements Parcelable {
         this.descripcion = descripcion;
         this.resumen = resumen;
     }
-
+    /**En este constructior recoge los datos al crear la tarea con id progresivo*/
     public Tarea(String prioridad, String categoria, String estado, String tecnico, String resumen, String descripcion) {
         this.id = contador++;
         this.prioridad = prioridad;
@@ -32,7 +33,7 @@ public class Tarea implements Parcelable {
         this.descripcion = descripcion;
         this.resumen = resumen;
     }
-
+/**Estos son los getter y setter*/
     public static int getContador() {
         return contador;
     }
@@ -96,7 +97,7 @@ public class Tarea implements Parcelable {
     public void setResumen(String resumen) {
         this.resumen = resumen;
     }
-
+/**Este metodo compara el objeto que se ha pasado con el actual*/
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -109,7 +110,7 @@ public class Tarea implements Parcelable {
     public int describeContents() {
         return 0;
     }
-
+/**Estos metodos sirven para implementar parcelable*/
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(this.id);

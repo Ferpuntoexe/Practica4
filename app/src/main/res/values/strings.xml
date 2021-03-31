@@ -26,6 +26,8 @@
     <string name="media">Media</string>
     <string name="alta">Alta</string>
     <string name="tarean">Tarea nº</string>
+    <string name="mensageBorrar">\"¿Esta seguro de borrar la tarea \"</string>
+    <string name="cancelar">Cancelar</string>
     <string-array name="prioridad">
         <item>Baja</item>
         <item>Media</item>

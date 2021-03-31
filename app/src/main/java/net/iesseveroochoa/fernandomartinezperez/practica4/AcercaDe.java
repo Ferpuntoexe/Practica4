@@ -8,6 +8,7 @@ import android.os.Bundle;
 import androidx.fragment.app.DialogFragment;
 
 public class AcercaDe extends DialogFragment {
+    /**Este es el metodo que se llama cuando se inicia la actividad*/
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
 
